@@ -19,6 +19,7 @@ const showImages = (images) => {
   gallery.innerHTML = '';
   // show gallery title
   galleryHeader.style.display = 'flex';
+  console.log(images)
   images.forEach(image => {
     let div = document.createElement('div');
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
@@ -31,20 +32,23 @@ const showImages = (images) => {
 const getImages = (query) => {
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
-    .then(data => showImages(data.hitS))
+    .then(data => showImages(data.hits))
     .catch(err => console.log(err))
 }
 
 let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
-  element.classList.add('added');
+  element.classList.toggle('added');
  
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
-  } else {
-    alert('Hey, Already added !')
+    console.log(img)
+    console.log(sliders.length)
+
+  }else{
+    delete sliders[item];
   }
 }
 var timer
@@ -67,7 +71,8 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
-  const duration = document.getElementById('duration').value || 1000;
+  const durationValue=document.getElementById('duration').value
+  const duration = (durationValue>0)?durationValue : 1000;
   sliders.forEach(slide => {
     let item = document.createElement('div')
     item.className = "slider-item";
@@ -110,12 +115,20 @@ const changeSlide = (index) => {
 }
 
 searchBtn.addEventListener('click', function () {
-  document.querySelector('.main').style.display = 'none';
+  document.querySelector('.main').style.display = 'block';
   clearInterval(timer);
   const search = document.getElementById('search');
   getImages(search.value)
   sliders.length = 0;
 })
+
+document.getElementById('search').addEventListener("keypress", function(event) {
+  console.log(event)
+  if (event.key === 'Enter'){
+      console.log("click enter")
+      searchBtn.click();
+  }
+});
 
 sliderBtn.addEventListener('click', function () {
   createSlider()
