@@ -5,7 +5,10 @@
   margin: 0 auto;
   position: relative;
 }
-
+#selected-photo{
+  display: none;
+  background-color: rgb(194, 193, 193);
+}
 .gallery-header {
   display: none;
 }

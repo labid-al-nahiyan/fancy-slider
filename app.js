@@ -19,7 +19,9 @@ const showImages = (images) => {
   gallery.innerHTML = '';
   // show gallery title
   galleryHeader.style.display = 'flex';
-  console.log(images)
+
+  document.getElementById("selected-photo").style.display= 'block'
+
   images.forEach(image => {
     let div = document.createElement('div');
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
@@ -46,9 +48,12 @@ const selectItem = (event, img) => {
     sliders.push(img);
     console.log(img)
     console.log(sliders.length)
+    document.getElementById("selected-photo-number").innerText =sliders.length;
+
 
   }else{
-    delete sliders[item];
+    sliders.splice(item, 1)
+    document.getElementById("selected-photo-number").innerText =sliders.length;
   }
 }
 var timer
@@ -118,8 +123,9 @@ searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'block';
   clearInterval(timer);
   const search = document.getElementById('search');
-  getImages(search.value)
+  getImages(search.value);
   sliders.length = 0;
+  document.getElementById('selected-photo-number').innerText =sliders.length; 
 })
 
 document.getElementById('search').addEventListener("keypress", function(event) {
