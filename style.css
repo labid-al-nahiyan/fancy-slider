@@ -9,6 +9,18 @@
   display: none;
   background-color: rgb(194, 193, 193);
 }
+#isRepeat{
+  display: none;
+  margin: 200px;
+  border: 1 px solid gray;
+  box-shadow: 5px 5px 5px gray;
+  text-align: center;
+}
+#ensure-repeat{
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 50px 20px 50px;
+}
 .gallery-header {
   display: none;
 }
